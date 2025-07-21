@@ -9,18 +9,18 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
   const accessTokenOptions = {
     httpOnly: true,
     secure: false,
-    sameSite: "none",
+    sameSite: "lax",
     expires: new Date(Date.now() + 5 * 60 * 1000),
   };
 
   const refreshTokenOptions = {
     httpOnly: true,
     secure: false,
-    sameSite: "none",
+    sameSite: "lax",
     expires: new Date(Date.now() + 24 * 60 * 60 * 1000),
   };
 
-  if (!accessToken || !refreshToken) {
+  if (!accessToken && !refreshToken) {
     return res.status(401).json({
       success: false,
       message: "No authentication tokens found",
@@ -30,9 +30,7 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
 
   try {
     const decoded = jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET);
-    console.log(decoded)
-    const user = await User.findById(decoded._id);
-    console.log(user)
+    const user = await User.findById(decoded.id);
 
     if (!user) {
       return res.status(401).json({
@@ -42,10 +40,10 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
       });
     }
 
-    req.user = { id: user._id };
+    req.user = { id: user.id };
     return next();
   } catch (error) {
-    if (error.name === "TokenExpiredError") {
+    if (error.name === "TokenExpiredError" || error.name === 'JsonWebTokenError') {
       try {
         const decoded = jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET);
         const user = await User.findById(decoded.id);
@@ -58,10 +56,10 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
           });
         }
 
-        const newAccessToken = jwt.sign({ id: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+        const newAccessToken = jwt.sign({ id: user.id }, process.env.ACCESS_TOKEN_SECRET, {
           expiresIn: "5m",
         });
-        const newRefreshToken = jwt.sign({ id: user._id }, process.env.REFRESH_TOKEN_SECRET, {
+        const newRefreshToken = jwt.sign({ id: user.id }, process.env.REFRESH_TOKEN_SECRET, {
           expiresIn: "24h",
         });
 
@@ -71,7 +69,7 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
         res.cookie("accessToken", newAccessToken, accessTokenOptions);
         res.cookie("refreshToken", newRefreshToken, refreshTokenOptions);
 
-        req.user = { id: user._id };
+        req.user = { id: user.id };
 
         return next();
       } catch (refreshError) {
@@ -82,6 +80,8 @@ export const authMiddleware = asyncHandler(async (req, res, next) => {
         });
       }
     }
+
+    console.error("Token Error:", error);
 
     return res.status(401).json({
       success: false,

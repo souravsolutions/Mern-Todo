@@ -4,22 +4,25 @@ import google from "../assets/google.jpg";
 import github from "../assets/github.svg";
 import { Link, useNavigate } from "react-router";
 import ApiClient from "../../Service/apiClient";
+import { useUser } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate()
+  
+  const navigate = useNavigate();
+  const { setUser } = useUser();
 
   const loginHandeler = async (e) => {
     e.preventDefault();
     try {
-      const res = await ApiClient.login(email, password)
-      console.log("Register Successfully Complete:", res.data);
+      const res = await ApiClient.login(email, password);
+      const user = res.data.message.user
+      setUser(user);
 
-      navigate("/home")
+      navigate("/home");
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
   return (

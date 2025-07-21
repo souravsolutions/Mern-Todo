@@ -20,6 +20,10 @@ class ApiClient {
   async login(email, password) {
     return this.client.post("/auth/login", { email, password });
   }
+
+  async getMe() {
+    return this.client.get("/auth/me")
+  }
 }
 
 export default new ApiClient()

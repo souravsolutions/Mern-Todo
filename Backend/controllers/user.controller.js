@@ -59,15 +59,15 @@ const loginUser = asyncHandler(async (req, res) => {
   const refreshTokenOptions = {
     httpOnly: true,
     secure: false,
-    sameSite: "none",
-    maxAge: 7 * 25 * 60 * 60 * 1000,
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   };
 
   const accessTokenOptions = {
     httpOnly: true,
     secure: false,
-    sameSite: "none",
-    maxAge: 15 * 60 * 1000,
+    sameSite: "lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   };
   
   user.refreshToken = refreshToken
@@ -87,4 +87,20 @@ const loginUser = asyncHandler(async (req, res) => {
     );
 });
 
-export { registerUser, loginUser };
+const getMe = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user.id).select("username email");
+
+  if (!user) {
+    return res.status(404).json({
+      success: false,
+      message: "User not found",
+    });
+  }
+
+  res.status(200).json({
+    success: true,
+    user,
+  });
+})
+
+export { registerUser, loginUser, getMe};
