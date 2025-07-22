@@ -7,10 +7,12 @@ import { TiHome } from "react-icons/ti";
 import { FaRegUser } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";
 import { IoIosLogOut } from "react-icons/io";
-import hi from "../assets/hi.svg"
+import hi from "../assets/hi.svg";
+import Project from "./Project.jsx";
 
 function Home() {
   const [user, setUser] = useState(null);
+  const [isProjectOpen, setIsProjectOpen] = useState(false);
 
   useEffect(() => {
     const getMe = async () => {
@@ -30,10 +32,10 @@ function Home() {
       <div className='h-full w-30 bg-black rounded-3xl shadow-[-10px_-10px_30px_4px_rgba(0,0,0,0.1),_10px_10px_30px_4px_rgba(0,0,0,0.15)] flex flex-col py-10 items-center justify-between mr-20'>
         <h1 className='font-Winky font-bold text-6xl text-white'>T</h1>
         <div className='flex flex-col items-center gap-10'>
-          <Link className='text-white text-3xl'>
+          <Link className='text-white text-3xl' to='/home'>
             <TiHome />
           </Link>
-          <Link className='text-white text-3xl'>
+          <Link className='text-white text-3xl' to=''>
             <FaRegUser />
           </Link>
           <Link className='text-white text-3xl'>
@@ -46,16 +48,36 @@ function Home() {
       </div>
 
       <div className='h-full w-full p-5'>
-        <div className='h-50 bg-gray-200 flex justify-between items-center pl-40 pr-30'>
-         <div className="flex flex-col gap-3">
-          <h1 className="font-winky text-5xl">Hello {user ? <span className="font-bold">{user.username}</span> : "Logging First"}</h1>
-          <h1 className="font-winky opacity-50 text-xl">Its good to see you again</h1>
-         </div>
-         <img src={hi}></img>
+        <div className='h-65 bg-gray-200 flex justify-between items-center pl-40 pr-30'>
+          <div className='flex flex-col gap-3'>
+            <h1 className='font-winky text-5xl'>
+              Hello{" "}
+              {user ? (
+                <span className='font-bold'>{user.username}</span>
+              ) : (
+                "Logging First"
+              )}
+            </h1>
+            <h1 className='font-winky opacity-50 text-xl'>
+              Its good to see you again
+            </h1>
+          </div>
+          <img src={hi} className='h-60'></img>
         </div>
       </div>
 
-      <div className='h-full'></div>
+      <div className='h-full p-2 flex flex-col pt-5 justify-between'>
+        <button
+          className='bg-black text-white px-4 py-2 rounded text-lg'
+          onClick={() => setIsProjectOpen(true)}
+        >
+          +Create Project
+        </button>
+        <div></div>
+        <div></div>
+      </div>
+
+      {isProjectOpen && <Project setIsProjectOpen={setIsProjectOpen} />}
     </div>
   );
 }

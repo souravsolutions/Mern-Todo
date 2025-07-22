@@ -24,6 +24,10 @@ class ApiClient {
   async getMe() {
     return this.client.get("/auth/me")
   }
+
+  async createProject(name) {
+    return this.client.post("/project", { name })
+  }
 }
 
 export default new ApiClient()
