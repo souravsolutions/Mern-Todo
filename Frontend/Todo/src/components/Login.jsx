@@ -4,14 +4,12 @@ import google from "../assets/google.jpg";
 import github from "../assets/github.svg";
 import { Link, useNavigate } from "react-router";
 import ApiClient from "../../Service/apiClient";
-import { useUser } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   
   const navigate = useNavigate();
-  const { setUser } = useUser();
 
   const loginHandeler = async (e) => {
     e.preventDefault();

@@ -28,6 +28,18 @@ class ApiClient {
   async createProject(name) {
     return this.client.post("/project", { name })
   }
+
+  async getProjects() {
+    return this.client.get("/project")
+  }
+
+  async deleteProject(id) {
+    return this.client.delete(`/project/${id}`)
+  }
+
+  async updateProject(id,name) {
+    return this.client.put(`/project/${id}`, { name })
+  }
 }
 
 export default new ApiClient()
