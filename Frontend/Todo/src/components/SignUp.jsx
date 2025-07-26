@@ -3,7 +3,7 @@ import myimage from "../assets/myimage.gif";
 import google from "../assets/google.jpg";
 import github from "../assets/github.svg";
 import { Link, useNavigate } from "react-router";
-import ApiClient from "../../Service/apiClient.js";
+import ApiClient from "../Service/apiClient.js";
 
 function SignUp() {
   const [username, setUsername] = useState('')

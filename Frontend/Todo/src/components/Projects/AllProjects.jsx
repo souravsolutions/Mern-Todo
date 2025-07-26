@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import ApiClient from "../../../Service/apiClient.js";
+import ApiClient from "../../Service/apiClient.js";
 import { Link } from "react-router-dom";
 import UpdateProject from "./ProjectUpdate.jsx";
 import { MdDelete } from "react-icons/md";

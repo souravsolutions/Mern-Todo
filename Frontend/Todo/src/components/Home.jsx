@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router";
-import ApiClient from "../../Service/apiClient.js";
+import ApiClient from "../Service/apiClient.js";
 import { TiHome } from "react-icons/ti";
 import { FaRegUser } from "react-icons/fa";
 import { IoMdSettings } from "react-icons/io";

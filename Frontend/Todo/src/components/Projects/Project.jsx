@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ApiClient from "../../../Service/apiClient.js";
+import ApiClient from "../../Service/apiClient.js";
 import { Link, useNavigate } from "react-router";
 
 function Project({ setIsProjectOpen, setProjects }) {
