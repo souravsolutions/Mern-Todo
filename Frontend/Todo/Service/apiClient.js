@@ -40,6 +40,22 @@ class ApiClient {
   async updateProject(id,name) {
     return this.client.put(`/project/${id}`, { name })
   }
+
+  async createTodos(title, projectId) {
+    return this.client.post(`/todo`, { title,projectId })
+  }
+  
+  async getTodos(projectId) {
+    return this.client.get(`/todo/project/${projectId}`)
+  }
+
+  async UpdateTodos(id,title,completed) {
+    return this.client.put(`/todo/${id}`, {title,completed});
+  }
+
+  async DeleteTodo(id) {
+    return this.client.delete(`/todo/${id}`)
+  }
 }
 
 export default new ApiClient()

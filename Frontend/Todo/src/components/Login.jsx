@@ -16,7 +16,6 @@ function Login() {
     try {
       const res = await ApiClient.login(email, password);
       const user = res.data.message.user
-      setUser(user);
 
       navigate("/home");
     } catch (error) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import ApiClient from "../../Service/apiClient";
-import { Link } from "react-router";
+import ApiClient from "../../../Service/apiClient.js";
+import { Link } from "react-router-dom";
 import UpdateProject from "./ProjectUpdate.jsx";
 import { MdDelete } from "react-icons/md";
 import { FaPencil } from "react-icons/fa6";
@@ -38,7 +38,7 @@ function AllProjects({ projects, setProjects }) {
 
   return (
     <div className='mt-6'>
-      <h2 className='mb-4 font-Winky font-bold text-3xl ml-10 text-white'>
+      <h2 className='mb-4 font-Winky font-bold text-3xl ml-10 text-white font-rodies'>
         Projects
       </h2>
 
