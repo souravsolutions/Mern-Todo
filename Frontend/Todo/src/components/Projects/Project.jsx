@@ -7,8 +7,6 @@ function Project({ setIsProjectOpen, setProjects }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
 
-  const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -25,7 +23,7 @@ function Project({ setIsProjectOpen, setProjects }) {
 
       setProjects((prev) => [...prev, res.data.data]);
 
-      setName("");
+      setName(" ");
 
       setIsProjectOpen(false);
     } catch (error) {
