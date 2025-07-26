@@ -4,7 +4,7 @@ A full-featured Todo app built using the MERN stack with user authentication, mu
 
 ## 📹 Demo
 
-![Todo App Demo](https://github.com/user-attachments/assets/be9987cd-904b-42a8-b1d8-52eff9146605)
+<video src="./Frontend//Todo/public/demo.mp4" controls></video>
 
 ## 🛠️ Tech Stack
 
